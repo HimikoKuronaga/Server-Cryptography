@@ -1,5 +1,5 @@
 const express = require('express');
-const { Verify, GenerateKey } = require('./../../helpers/affine');
+const { affVerify, GenerateKey } = require('./../../helpers/affine');
 const app = express();
 
 app.get('/affine/key', (req, res) => {
@@ -25,7 +25,7 @@ app.get('/affine/verify', (req, res)=>{
 			err:'Debes proporcionar la llave'
 		});
 	
-	let resp = Verify(a, b, ring)	
+	let resp = affVerify(a, b, ring)	
 	
 	if( resp === 3 )
 		res.json({

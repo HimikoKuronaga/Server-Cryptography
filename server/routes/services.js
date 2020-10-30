@@ -212,11 +212,19 @@ app.post('/vigenere/file/decrypt', (req, res)=>{
 	}
 
 	let file = req.files.file;
-	let [name, vig, ext] = file.name.split('.');
-	if( vig !== 'vig' || ext !== 'txt' ){
+	let extension = file.name.split('.');
+
+	if(extension[2] !== 'txt' ){
 		return res.status(500).json({
 			ok: false,
 			err:'Extension del archivo invalida'
+		});
+	}
+
+	if(extension[1] !== 'vig'){
+		return res.status(500).json({
+			ok: false,
+			err:'El archivo no esta cifrado'
 		});
 	}
 
