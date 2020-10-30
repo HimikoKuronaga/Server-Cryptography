@@ -4,7 +4,8 @@ const app = express();
 
 app.get('/affine/key', (req, res) => {
 	let ring = req.query.ring || 128;
-	ring = Number( ring );
+	
+	ring = parseInt( ring );
 	let key = GenerateKey(ring);
 
 	res.json({

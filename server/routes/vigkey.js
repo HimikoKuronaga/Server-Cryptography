@@ -1,5 +1,5 @@
 const express = require('express');
-const { Verify } = require('./../../helpers/vigenere');
+const { vigVerify } = require('./../../helpers/vigenere');
 
 const app = express();
 
@@ -7,14 +7,10 @@ app.get('/vigenere/verify', (req, res)=>{
 	
 	let key = req.query.key || false;
 
-	if( !key ){
-		return res.status(400).json({
-			ok: false,
-			err: 'No enviaste la llave'
-		});
-	}
-	
-	if(Verify(key)){
+	if( !key )
+		return res.status(400).json({ ok: false, err: 'No enviaste la llave' });
+		
+	if( vigVerify(key) ){
 		res.json({
 			ok: true
 		});
@@ -35,6 +31,7 @@ app.get('/vigenere/key', (req, res)=>{
 		randomChar = Math.floor( Math.random()* 26)+97 ;
 		key+=String.fromCharCode( randomChar );
 	}
+	
 	res.json({
 		ok:true,
 		key
